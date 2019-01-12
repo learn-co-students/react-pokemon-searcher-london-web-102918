@@ -10,7 +10,7 @@ class PokemonPage extends React.Component {
     super();
     this.state = {
       pokemon: [],
-      filteredPokemons: []
+      query: ''
     };
   }
 
@@ -28,19 +28,25 @@ class PokemonPage extends React.Component {
       );
   };
 
+
+
   filteredPokemons = (event) => {
-    console.log(event.target.value)
+    event.preventDefault()
+    this.setState({query: event.target.value})
 
-
+    if (this.state.query.length > 1){
     let filteredPokemonsByName = [...this.state.pokemon]
-
-    filteredPokemonsByName.filter(pokemon => pokemon.name.includes(event.target.value))
+    let result
+    result = filteredPokemonsByName.filter(pokemon => pokemon.name.includes(this.state.query))
 
     this.setState({
-      pokemon: filteredPokemonsByName
+      pokemon: result
     })
-    event.preventDefault()
+    }else{
+      this.fetchPokemon()
+    }
   }
+
 
   render() {
     console.log("the page is being refershed");
