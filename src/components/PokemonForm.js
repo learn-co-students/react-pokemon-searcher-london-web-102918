@@ -2,16 +2,24 @@ import React from 'react'
 import { Form } from 'semantic-ui-react'
 
 class PokemonForm extends React.Component {
-  constructor() {
-    super()
 
-    this.state = {
+state = {
       name: '',
       hp: '',
       frontUrl: '',
       backUrl: ''
     }
-  }
+
+    handleSubmit = (event) => {
+      event.preventDefault()
+      let newPokemonObject = {
+        name: event.target.name.value,
+        hp: event.target.hp.value,
+        frontUrl: event.target.frontUrl.value,
+        backUrl: event.target.backUrl.value
+      }
+      this.props.addNewPokemon(newPokemonObject)
+    }
 
   render() {
     return (

@@ -28,7 +28,13 @@ class PokemonPage extends React.Component {
       );
   };
 
+  addNewPokemon = (newPokemonObject) => {
+      const updatedPokemonArray = [newPokemonObject, ...this.state.pokemon]
 
+      this.setState({
+        pokemon: updatedPokemonArray
+      })
+  }
 
   filteredPokemons = (event) => {
     event.preventDefault()
@@ -61,7 +67,7 @@ class PokemonPage extends React.Component {
         <br />
         <PokemonCollection pokemon={this.state.pokemon} />
         <br />
-        <PokemonForm />
+        <PokemonForm addNewPokemon={this.addNewPokemon}/>
       </div>
     );
   }
