@@ -11,7 +11,8 @@ class PokemonPage extends React.Component {
     super();
     this.state = {
       pokemon: [],
-      query: ''
+      query: '',
+      valueQuery: ''
     };
   }
 
@@ -67,8 +68,21 @@ class PokemonPage extends React.Component {
 
 
 
-  filteredPokemonsByValue = (e) => {
-    console.log(e)
+  filteredPokemonsByValue = (event) => {
+    event.preventDefault()
+    this.setState ({
+        valueQuery: event.target.value + "0"
+    })
+
+
+    let filteredPokemonsByValue = [...this.state.pokemon]
+
+    let result = filteredPokemonsByValue.filter(pokemon => (pokemon.stats[pokemon.stats.length - 1])["value"] > this.state.valueQuery)
+
+    this.setState({
+      pokemon: result
+    })
+
   }
 
   render() {
