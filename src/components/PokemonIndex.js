@@ -9,7 +9,8 @@ class PokemonPage extends React.Component {
   constructor() {
     super();
     this.state = {
-      pokemon: []
+      pokemon: [],
+      filteredPokemons: []
     };
   }
 
@@ -27,14 +28,28 @@ class PokemonPage extends React.Component {
       );
   };
 
+  filteredPokemons = (event) => {
+    console.log(event.target.value)
+
+
+    let filteredPokemonsByName = [...this.state.pokemon]
+
+    filteredPokemonsByName.filter(pokemon => pokemon.name.includes(event.target.value))
+
+    this.setState({
+      pokemon: filteredPokemonsByName
+    })
+    event.preventDefault()
+  }
+
   render() {
-    console.log("this is the state of pokemon", this.state.pokemon);
+    console.log("the page is being refershed");
     return (
       <div>
         <h1>Pokemon Searcher</h1>
         <br />
         <Search
-          onSearchChange={_.debounce(() => console.log("🤔"), 500)}
+          onSearchChange={this.filteredPokemons}
           showNoResults={false}
         />
         <br />
