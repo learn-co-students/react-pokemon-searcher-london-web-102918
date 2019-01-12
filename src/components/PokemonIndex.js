@@ -1,6 +1,7 @@
 import React from "react";
 import PokemonCollection from "./PokemonCollection";
 import PokemonForm from "./PokemonForm";
+import ValueSearch from "./ValueSearch";
 import { Search } from "semantic-ui-react";
 import _ from "lodash";
 const URL = "http://localhost:3000/pokemon";
@@ -34,6 +35,17 @@ class PokemonPage extends React.Component {
       this.setState({
         pokemon: updatedPokemonArray
       })
+
+      fetch(URL, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newPokemonObject)
+      })
+
+
   }
 
   filteredPokemons = (event) => {
@@ -54,10 +66,18 @@ class PokemonPage extends React.Component {
   }
 
 
+
+  filteredPokemonsByValue = (e) => {
+    console.log(e)
+  }
+
   render() {
     console.log("the page is being refershed");
     return (
+
       <div>
+        <h1>Value Searcher</h1>
+        <ValueSearch filteredPokemonsByValue={this.filteredPokemonsByValue}/>
         <h1>Pokemon Searcher</h1>
         <br />
         <Search
