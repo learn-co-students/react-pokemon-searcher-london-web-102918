@@ -1,15 +1,20 @@
 import React from "react";
-import { Search } from "semantic-ui-react";
+import {
+  Search
+} from "semantic-ui-react";
 
 class ValueSearch extends React.Component {
 
 
 
   render() {
-    return (
-      <Search
-        onSearchChange={this.props.filteredPokemonsByValue}
-        showNoResults={false}
+    return ( <
+      Search onSearchChange = {
+        this.props.filteredPokemonsByValue
+      }
+      showNoResults = {
+        false
+      }
       />
     );
   }
