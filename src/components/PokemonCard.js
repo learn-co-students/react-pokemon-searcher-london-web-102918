@@ -6,12 +6,18 @@ class PokemonCard extends React.Component {
     return this.props.pokemon.stats.find(stat => stat.name === "hp").value;
   };
 
+  toggleImage = (event) => {
+    event.target.src === this.props.pokemon.sprites.front
+    ? event.target.setAttribute('src', `${this.props.pokemon.sprites.back}`)
+    : event.target.setAttribute('src', `${this.props.pokemon.sprites.front}`)
+  }
+
   render() {
     return (
       <Card>
         <div>
           <div className="image">
-            <img alt="oh no!" src={this.props.pokemon.sprites.front} />
+            <img onClick={this.toggleImage} alt="oh no!" src={this.props.pokemon.sprites.front} />
           </div>
           <div className="content">
             <div className="header">{this.props.pokemon.name}</div>

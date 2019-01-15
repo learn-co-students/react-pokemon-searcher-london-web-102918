@@ -9,7 +9,8 @@ class PokemonPage extends React.Component {
   constructor() {
     super();
     this.state = {
-      pokemon: []
+      pokemon: [],
+      searchInput: ''
     };
   }
 
@@ -27,20 +28,28 @@ class PokemonPage extends React.Component {
       );
   };
 
+  handleSearch = (event, { value }) => {
+    this.setState({
+      searchInput: value
+    })
+
+  }
+
   render() {
-    console.log("this is the state of pokemon", this.state.pokemon);
+    const filteredPokemon = this.state.pokemon.filter(pokemon => pokemon.name.includes(this.state.searchInput));
+    ;
     return (
       <div>
         <h1>Pokemon Searcher</h1>
         <br />
-        <Search
-          onSearchChange={_.debounce(() => console.log("🤔"), 500)}
+        <Search placeholder="type here to start searching...."
+          onSearchChange={_.debounce(this.handleSearch, 500)}
           showNoResults={false}
         />
         <br />
-        <PokemonCollection pokemon={this.state.pokemon} />
-        <br />
         <PokemonForm />
+        <br />
+        <PokemonCollection pokemon={filteredPokemon} />
       </div>
     );
   }
