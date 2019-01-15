@@ -32,12 +32,23 @@ class PokemonPage extends React.Component {
     this.setState({
       searchInput: value
     })
+  }
 
+  handleSubmit = (newPokemonData) => {
+    fetch(URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newPokemonData),
+    })
+      .then(response => response.json())
+      .then(() => this.fetchPokemon())
   }
 
   render() {
     const filteredPokemon = this.state.pokemon.filter(pokemon => pokemon.name.includes(this.state.searchInput));
-    ;
+
     return (
       <div>
         <h1>Pokemon Searcher</h1>
@@ -47,7 +58,7 @@ class PokemonPage extends React.Component {
           showNoResults={false}
         />
         <br />
-        <PokemonForm />
+        <PokemonForm handleSubmit={this.handleSubmit}/>
         <br />
         <PokemonCollection pokemon={filteredPokemon} />
       </div>
